@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 public class PaymentController {
     @Resource
-    private PaymentService paymentService;
+    private PaymentService paymentService;;
 
     @Value("${server.port}")
     private String serverPort;
