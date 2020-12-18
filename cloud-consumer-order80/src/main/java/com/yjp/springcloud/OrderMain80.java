@@ -5,16 +5,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
- * ClassName: PaymentMain8001
+ * ClassName: OrderMain80
  * Description:
- * date: 2020/12/17 11:59
+ * date: 2020/12/18 10:43
  *
  * @author yan
  */
 @SpringBootApplication
 @EnableEurekaClient
-public class PaymentMain8001 {
+public class OrderMain80 {
     public static void main(String[] args) {
-        SpringApplication.run(PaymentMain8001.class,args);
+        SpringApplication.run(OrderMain80.class,args);
     }
 }
