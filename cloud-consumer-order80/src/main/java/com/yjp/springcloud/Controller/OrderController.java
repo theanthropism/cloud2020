@@ -2,11 +2,19 @@ package com.yjp.springcloud.Controller;
 
 import com.yjp.springcloud.entities.CommonResult;
 import com.yjp.springcloud.entities.Payment;
+import com.yjp.springcloud.utils.RestTemplateUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ClassName: OrderController
@@ -26,13 +34,13 @@ public class OrderController {
 
     @PostMapping("/consumer/payment/create")
     public CommonResult<Payment> create(@RequestBody Payment payment){
-        return restTemplate.postForObject(PAYMENT_URL+"/payment/create",payment,CommonResult.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "token");
+        return RestTemplateUtils.postForEntity(PAYMENT_URL+"/payment/create","token",payment,CommonResult.class);
     }
 
     @GetMapping("/consumer/payment/get/{id}")
     public CommonResult<Payment> getPayment(@PathVariable("id") Long id){
-        return restTemplate.getForObject(PAYMENT_URL+"/payment/get/"+id,CommonResult.class);
+        return RestTemplateUtils.getExchange(PAYMENT_URL+"/payment/get/"+id,"sjfjs",CommonResult.class);
     }
-
-
 }

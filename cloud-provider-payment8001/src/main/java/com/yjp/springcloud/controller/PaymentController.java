@@ -1,5 +1,6 @@
 package com.yjp.springcloud.controller;
 
+import cn.hutool.http.HttpRequest;
 import com.yjp.springcloud.entities.CommonResult;
 import com.yjp.springcloud.entities.Payment;
 import com.yjp.springcloud.service.PaymentService;
@@ -10,6 +11,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -32,7 +34,7 @@ public class PaymentController {
     private DiscoveryClient discoveryClient;
 
     @PostMapping(value="/payment/create")
-    public CommonResult create(@RequestBody Payment payment){
+    public CommonResult create(@RequestBody Payment payment,HttpServletRequest request){
         int result = paymentService.create(payment);
         log.info("+++++++++++=插入结果："+result);
         if(result>0){
@@ -43,7 +45,8 @@ public class PaymentController {
     }
 
     @GetMapping(value="/payment/get/{id}")
-    public CommonResult getPaymentById(@PathVariable("id") Long id){
+    public CommonResult getPaymentById(@PathVariable("id") Long id,HttpServletRequest request){
+        log.info("jsfksflk"+request.getHeader("Authorization"));
         Payment payment = paymentService.getPaymentById(id);
         log.info("+++++++++++=查询结果："+payment);
         if(payment != null){
@@ -54,7 +57,8 @@ public class PaymentController {
     }
 
     @GetMapping(value = "/payment/discovery")
-    public Object discovery(){
+    public Object discovery(HttpServletRequest request){
+        log.info("jsfksflk"+request.getHeader("Authorization"));
         List<String> service = discoveryClient.getServices();
         service.forEach(x->{
             log.info("+++++++++++++"+x);
