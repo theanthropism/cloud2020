@@ -1,20 +1,14 @@
-package com.yjp.springcloud.Controller;
+package com.yjp.springcloud.controller;
 
 import com.yjp.springcloud.entities.CommonResult;
 import com.yjp.springcloud.entities.Payment;
 import com.yjp.springcloud.utils.RestTemplateUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * ClassName: OrderController
