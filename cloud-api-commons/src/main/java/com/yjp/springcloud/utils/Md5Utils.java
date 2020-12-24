@@ -12,18 +12,12 @@ public class Md5Utils {
             md.update(str.getBytes());
             return new BigInteger(1, md.digest()).toString(16);
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return str;
 
         }
 
     }
-    /*public static void main(String[] args) {
-        String result = MD5("t8z45nt4h980");
-        System.out.println("result: " + result);
-    }*/
 
     /**
      * 32位MD5加密的大写字符串

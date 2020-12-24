@@ -21,13 +21,15 @@ import java.security.spec.KeySpec;
 public class PBKDF2Util {
     public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
-
-    public static final int SALT_BYTE_SIZE = 32 / 2;         //盐的长度
-    public static final int HASH_BIT_SIZE = 128 * 4;         //生成密文的长度
-    public static final int PBKDF2_ITERATIONS = 1000;        //迭代次数
+    //盐的长度
+    public static final int SALT_BYTE_SIZE = 32 / 2;
+    //生成密文的长度
+    public static final int HASH_BIT_SIZE = 128 * 4;
+    //迭代次数
+    public static final int PBKDF2_ITERATIONS = 1000;
 
     /**
-     * @auther: Ragty
+     * @auther: yan
      * @describe: 对输入的密码进行验证
      * @param: [attemptedPassword(待验证密码), encryptedPassword(密文), salt(盐值)]
      * @return: boolean
@@ -42,7 +44,7 @@ public class PBKDF2Util {
     }
 
     /**
-     * @auther: Ragty
+     * @auther: yan
      * @describe: 生成密文
      * @param: [password(明文密码), salt(盐值)]
      * @return: java.lang.String
@@ -50,14 +52,13 @@ public class PBKDF2Util {
      */
     public static String getEncryptedPassword(String password, String salt) throws NoSuchAlgorithmException,
             InvalidKeySpecException {
-
         KeySpec spec = new PBEKeySpec(password.toCharArray(), fromHex(salt), PBKDF2_ITERATIONS, HASH_BIT_SIZE);
         SecretKeyFactory f = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
         return toHex(f.generateSecret(spec).getEncoded());
     }
 
     /**
-     * @auther: Ragty
+     * @auther: yan
      * @describe: 通过加密的强随机数生成盐(最后转换为16进制)
      * @param: []
      * @return: java.lang.String
@@ -71,7 +72,7 @@ public class PBKDF2Util {
     }
 
     /**
-     * @auther: Ragty
+     * @auther: yan
      * @describe: 十六进制字符串转二进制字符串
      * @param: [hex]
      * @return: byte[]
@@ -87,7 +88,7 @@ public class PBKDF2Util {
 
 
     /**
-     * @auther: Ragty
+     * @auther: yan
      * @describe: 二进制字符串转十六进制字符串
      * @param: [array]
      * @return: java.lang.String
@@ -132,9 +133,9 @@ public class PBKDF2Util {
         System.out.println("原始密码:"+password);
         System.out.println("MD5加密后的密码:"+md5);
         System.out.println("盐值:"+salt);
+        System.out.println("盐值size:"+salt.length());
         System.out.println("PBKDF2加盐后的密码:"+pbkdf2);
-        System.out.println("Test success");
-        System.out.println("PBKDF3=2加盐后的解密:"+pdkdf3);
+        System.out.println("Test success，size:"+pbkdf2.length());
+        System.out.println("PBKDF2加盐后的验证:"+pdkdf3);
     }
-
 }
