@@ -1,8 +1,8 @@
-package com.yjp.springcloud.controller;
+package com.yjp.springcloud.cloudproviderpayment8004.controller;
 
+import com.yjp.springcloud.cloudproviderpayment8004.service.PaymentService;
 import com.yjp.springcloud.entities.CommonResult;
 import com.yjp.springcloud.entities.Payment;
-import com.yjp.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -10,21 +10,22 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.UUID;
 
 /**
- * ClassName: PaymentController
- * Description:
- * date: 2020/12/17 15:15
+ * className: PaymentController
+ * description:
+ * date: 2021/3/25 10:49
  *
  * @author yan
  */
-@Slf4j
 @RestController
+@Slf4j
 public class PaymentController {
+
     @Resource
-    private PaymentService paymentService;
+    private PaymentService paymentService;;
 
     @Value("${server.port}")
     private String serverPort;
@@ -33,7 +34,7 @@ public class PaymentController {
     private DiscoveryClient discoveryClient;
 
     @PostMapping(value="/payment/create")
-    public CommonResult create(@RequestBody Payment payment,HttpServletRequest request){
+    public CommonResult create(@RequestBody Payment payment){
         int result = paymentService.create(payment);
         log.info("+++++++++++=插入结果："+result);
         if(result>0){
@@ -44,20 +45,12 @@ public class PaymentController {
     }
 
     @GetMapping(value="/payment/get/{id}")
-    public CommonResult getPaymentById(@PathVariable("id") Long id,HttpServletRequest request){
-        log.info("jsfksflk"+request.getHeader("Authorization"));
-        Payment payment = paymentService.getPaymentById(id);
-        log.info("+++++++++++=查询结果："+payment);
-        if(payment != null){
-            return new CommonResult("200","查询成功!!serverPort:"+serverPort,payment);
-        }else {
-            return new CommonResult("444","没有对应的记录!查询id:"+id,null);
-        }
+    public CommonResult getPaymentById(@PathVariable("id") Long id){
+       return new CommonResult("200","jjf", UUID.randomUUID());
     }
 
     @GetMapping(value = "/payment/discovery")
-    public Object discovery(HttpServletRequest request){
-        log.info("jsfksflk"+request.getHeader("Authorization"));
+    public Object discovery(){
         List<String> service = discoveryClient.getServices();
         service.forEach(x->{
             log.info("+++++++++++++"+x);
